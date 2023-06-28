@@ -78,3 +78,36 @@ void insert(){
 		
 	}
 }
+void display(){
+	if(size ==0){
+		printf ("list does not exist.");
+	}
+	else{
+		cll *temp;
+		temp = first;
+		do{
+			printf("%d/t",temp->data);
+			temp=temp->next;
+		}while(temp->next!=NULL);
+		
+	}
+}
+void Delete(){
+	cll *temp,*prev;
+	if(size==0){
+		printf("list does not exist.");
+	}
+	else{
+		int positon,i;
+		printf("enter the positon of data to delete(0-%d):",%size);
+		scanf("%d",&position);
+		if(position>= size){
+			temp = first;
+			while(temp->next!=first){
+				prev=temp;
+				temp=temp->next;
+			}
+			prev->next=last->next;
+		 
+		}
+	}
