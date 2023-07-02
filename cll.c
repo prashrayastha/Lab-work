@@ -5,25 +5,25 @@ struct circularlinkedlist{
 	int data;
 	struct circularlinkedlist *next;
 };
-typedef struct circluarlinkedlist cll;
+//typedef struct circluarlinkedlist struct circularlinkedlist;
 
 void insert();
 void display();
 void Delete();
-cll *last;
-cll *first;
-first=last;
-cll *newnode;
+struct circularlinkedlist *last=NULL;
+struct circularlinkedlist *first=NULL;
+struct circularlinkedlist *newnode=NULL;
 int size=0;
 
 int main(){
 	int opt;
 	
-	cll *c1;
+	struct circularlinkedlist *c1;
 	do{
 	system ("CLS");
 	printf("your options are :");
-	printf("/n 1. /t INSERT/n 2. /t DELETE/n 3. DISPLAY/n 4. /t EXIT");
+	printf("\n 1. \t INSERT\n 2. \t DELETE\n 3. \t DISPLAY\n 4. \t EXIT");
+	printf("\n Enter your option:");
 	scanf("%d",&opt);
 	switch(opt){
 		case 1:
@@ -42,10 +42,12 @@ int main(){
 	
 }
 void insert(){
-	int position,i=1;
-	cll *prevnode,*temp;
-	newnode=(cll*)malloc(sizeof(cll));
-	scanf("%d",&newnode->data);
+	int position,i=1,a;
+	struct circularlinkedlist *prevnode,*temp;
+	newnode=(struct circularlinkedlist*)malloc(sizeof (struct circularlinkedlist));
+	printf("Enter the data to add:");
+	scanf("%d",&a);
+	newnode->data=a;
 	if(first == NULL){
 		first=newnode;
 		last=newnode;
@@ -83,31 +85,53 @@ void display(){
 		printf ("list does not exist.");
 	}
 	else{
-		cll *temp;
+		struct circularlinkedlist *temp;
 		temp = first;
 		do{
-			printf("%d/t",temp->data);
-			temp=temp->next;
-		}while(temp->next!=NULL);
+			printf("%d\t",temp->data);
 		
+			temp=temp->next;
+		}while(temp!=first);
+		getch();
 	}
 }
 void Delete(){
-	cll *temp,*prev;
+	struct circularlinkedlist *temp,*prev;
+	temp = first;
+
 	if(size==0){
 		printf("list does not exist.");
 	}
 	else{
-		int positon,i;
-		printf("enter the positon of data to delete(0-%d):",%size);
+		int position,i=0;
+		printf("enter the positon of data to delete(1-%d):",size);
 		scanf("%d",&position);
 		if(position>= size){
-			temp = first;
 			while(temp->next!=first){
 				prev=temp;
 				temp=temp->next;
 			}
 			prev->next=last->next;
-		 
+			printf("%d\n",last->data);
+			free(last);
+			last=prev;
+		}	
+		else if (position <= 1){
+			printf("%d\n",first->data);
+			free(first);
+			first=temp->next;
+			}
+		else{
+			while(i<= position){
+				prev=temp;
+				temp=temp->next;
+				i++;
+			}
+			printf("%d\n",temp->data);
+			prev->next=temp->next;
+			
+			;
 		}
 	}
+	getch();
+}
